@@ -1,0 +1,53 @@
+{
+  "name": "ekl-logging",
+  "version": "1.0.0",
+  "description": "elastic search + kibana + logstash to monitoring",
+  "main": "index.js",
+  "private": true,
+  "engines": {
+    "node": "20.x"
+  },
+  "scripts": {
+    "preinstall": "npx only-allow pnpm",
+    "run": "docker compose up --build --timestamps -d",
+    "dev": "docker compose up --build --timestamps --watch",
+    "drop": "docker compose down -v --remove-orphans --rmi all"
+  },
+  "keywords": [
+    "kibana",
+    "elasticsearch",
+    "logstash"
+  ],
+  "author": "tigredonorte3@gmail.com",
+  "license": "MIT",
+  "dependencies": {
+    "@babel/cli": "^7.25.6",
+    "@babel/core": "^7.25.2",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.0",
+    "nodemailer": "^6.9.15",
+    "swagger-ui-express": "^5.0.1"
+  },
+  "devDependencies": {
+    "@babel/eslint-parser": "^7.25.1",
+    "@babel/node": "^7.25.0",
+    "@babel/plugin-proposal-do-expressions": "^7.24.7",
+    "@babel/plugin-proposal-export-default-from": "^7.24.7",
+    "@babel/plugin-proposal-logical-assignment-operators": "^7.20.7",
+    "@babel/plugin-proposal-nullish-coalescing-operator": "^7.18.6",
+    "@babel/plugin-proposal-optional-chaining": "^7.21.0",
+    "@babel/preset-env": "^7.25.4",
+    "@babel/preset-typescript": "^7.24.7",
+    "@types/dotenv": "^8.2.0",
+    "@types/express": "^4.17.21",
+    "@types/node": "^20.14.8",
+    "@types/nodemailer": "^6.4.15",
+    "@types/swagger-ui-express": "^4.1.6",
+    "eslint": "^9.10.0",
+    "eslint-config-prettier": "^9.1.0",
+    "ts-node": "^10.9.2",
+    "ts-node-dev": "^2.0.0",
+    "tsconfig-paths": "^4.2.0",
+    "typescript": "^5.6.2"
+  }
+}
