@@ -8,6 +8,7 @@ export default async () => {
   app.use(express.json());
 
   app.get('/', (req, res) => res.status(200).send('Hello World'));
+
   app.use(function onError(err: Error, req: Request, res: Response, next: NextFunction) {
     res.statusCode = 500;
     console.error(err);

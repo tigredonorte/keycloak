@@ -1,1 +1,1 @@
-require('./src/server').default();
+require('./server/src/main').default();
