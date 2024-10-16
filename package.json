@@ -12,7 +12,8 @@
     "run": "docker compose up --build --timestamps -d",
     "dev": "docker compose up --build --timestamps --watch",
     "drop": "docker compose down -v --remove-orphans --rmi all",
-    "dev:server": "ts-node-dev --respawn --transpile-only index.js"
+    "dev:server": "ts-node-dev --respawn --transpile-only index.js",
+    "dev:web": "vite ./web --host 0.0.0.0"
   },
   "keywords": [
     "kibana",
@@ -30,6 +31,8 @@
     "express-session": "^1.18.1",
     "keycloak-connect": "^26.0.0",
     "nodemailer": "^6.9.15",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
     "swagger-ui-express": "^5.0.1"
   },
   "devDependencies": {
@@ -42,16 +45,25 @@
     "@babel/plugin-proposal-optional-chaining": "^7.21.0",
     "@babel/preset-env": "^7.25.4",
     "@babel/preset-typescript": "^7.24.7",
+    "@eslint/js": "^9.11.1",
     "@types/dotenv": "^8.2.0",
     "@types/express": "^4.17.21",
     "@types/node": "^20.14.8",
     "@types/nodemailer": "^6.4.15",
+    "@types/react": "^18.3.10",
+    "@types/react-dom": "^18.3.0",
     "@types/swagger-ui-express": "^4.1.6",
-    "eslint": "^9.10.0",
+    "@vitejs/plugin-react": "^4.3.2",
+    "eslint": "^9.11.1",
     "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-react-hooks": "^5.1.0-rc.0",
+    "eslint-plugin-react-refresh": "^0.4.12",
+    "globals": "^15.9.0",
     "ts-node": "^10.9.2",
     "ts-node-dev": "^2.0.0",
     "tsconfig-paths": "^4.2.0",
-    "typescript": "^5.6.2"
+    "typescript": "^5.6.2",
+    "typescript-eslint": "^8.7.0",
+    "vite": "^5.4.8"
   }
 }

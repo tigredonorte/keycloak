@@ -15,6 +15,7 @@ services:
     depends_on:
       - api
       - keycloak
+      - web
     networks:
       - my-network
 
@@ -38,6 +39,21 @@ services:
     networks:
       - my-network
 
+  web:
+    build:
+      context: .
+      dockerfile: ./web/Dockerfile.web
+    restart: "no"
+    environment:
+      - NODE_ENV=development
+    command: npm run dev:web
+    volumes:
+      - ./:/app
+    networks:
+      - my-network
+    ports:
+      - "3000"
+
   keycloak:
     image: quay.io/keycloak/keycloak:26.0.0
     container_name: keycloak
@@ -47,10 +63,12 @@ services:
       - KC_DB_URL=jdbc:postgresql://${POSTGRES_HOST}:${POSTGRES_PORT}/${POSTGRES_DB}
       - KC_DB_USERNAME=${POSTGRES_USER}
       - KC_DB_PASSWORD=${POSTGRES_PASSWORD}
+      - KEYCLOAK_ADMIN_URL=http://${KC_HOSTNAME}:${NGINX_HOST_PORT}
+      - KC_HOSTNAME_URL=http://${KC_HOSTNAME}:${NGINX_HOST_PORT}
     env_file:
       - .env
     ports:
-      - "${KEYCLOAK_PORT}:${KEYCLOAK_PORT}"
+      - "${KEYCLOAK_PORT}"
       - "9000"
     depends_on:
       postgres:
