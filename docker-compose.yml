@@ -1,0 +1,47 @@
+name: keycloak
+
+version: '3.8'
+
+services:
+
+  nginx:
+    build:
+      context: .
+      dockerfile: ./infra/nginx/Dockerfile.nginx
+    ports:
+      - "80:80"
+    volumes:
+      - ./infra/nginx/nginx.conf:/etc/nginx/nginx.conf
+    depends_on:
+      - api
+      - keycloak
+    networks:
+      - my-network
+
+  api:
+    build:
+      context: .
+      dockerfile: ./server/Dockerfile.server
+    ports:
+      - "${APP_PORT}"
+    volumes:
+      - .:/app
+    command: npm run dev:server
+    env_file:
+      - .env
+    healthcheck:
+      test: ["CMD-SHELL", "exit $(curl -s -o /dev/null -w '%{http_code}' http://localhost:9000/health/ready) -eq 200 || exit 1"]
+      interval: 300s
+      timeout: 5s
+      retries: 5
+      start_period: 5s
+    networks:
+      - my-network
+
+networks:
+  my-network:
+    driver: bridge
+
+configs:
+  nginx-config:
+    file: ./infra/nginx/nginx.conf

@@ -4,6 +4,9 @@
 			"path": "./server"
 		},
 		{
+			"path": "./infra"
+		},
+		{
 			"path": "."
 		}
 	]
