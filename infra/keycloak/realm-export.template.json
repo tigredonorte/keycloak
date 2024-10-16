@@ -1,0 +1,15 @@
+{
+  "realm": "${REALM}",
+  "enabled": true,
+  "registrationAllowed": true,
+  "resetPasswordAllowed": true,
+  "smtpServer": {
+    "host": "${SMTP_HOST}",
+    "port": "${SMTP_PORT}",
+    "user": "${SMTP_USER}",
+    "password": "${SMTP_PASSWORD}",
+    "from": "${SMTP_FROM}",
+    "auth": "true",
+    "starttls": "true"
+  }
+}
