@@ -14,9 +14,15 @@ importers:
       '@babel/core':
         specifier: ^7.25.2
         version: 7.25.2
+      '@types/cors':
+        specifier: ^2.8.17
+        version: 2.8.17
       '@types/express-session':
         specifier: ^1.18.0
         version: 1.18.0
+      cors:
+        specifier: ^2.8.5
+        version: 2.8.5
       dotenv:
         specifier: ^16.4.5
         version: 16.4.5
@@ -27,6 +33,9 @@ importers:
         specifier: ^1.18.1
         version: 1.18.1
       keycloak-connect:
+        specifier: ^26.0.0
+        version: 26.0.0
+      keycloak-js:
         specifier: ^26.0.0
         version: 26.0.0
       nodemailer:
@@ -78,6 +87,9 @@ importers:
       '@types/express':
         specifier: ^4.17.21
         version: 4.17.21
+      '@types/keycloak-js':
+        specifier: ^3.4.1
+        version: 3.4.1
       '@types/node':
         specifier: ^20.14.8
         version: 20.16.10
@@ -1159,6 +1171,9 @@ packages:
   '@types/connect@3.4.38':
     resolution: {integrity: sha512-K6uROf1LD88uDQqJCktA4yzL1YYAK6NgfsI0v/mTgyPKWsX1CnJ0XPSDhViejru1GcRkLWb8RlzFYJRqGUbaug==}
 
+  '@types/cors@2.8.17':
+    resolution: {integrity: sha512-8CGDvrBj1zgo2qE+oS3pOCyYNqCPryMWY2bGfwA0dcfopWGgxs+78df0Rs3rc9THP4JkOhLsAa+15VdpAqkcUA==}
+
   '@types/dotenv@8.2.0':
     resolution: {integrity: sha512-ylSC9GhfRH7m1EUXBXofhgx4lUWmFeQDINW5oLuS+gxWdfUeW4zJdeVTYVkexEW+e2VUvlZR2kGnGGipAWR7kw==}
     deprecated: This is a stub types definition. dotenv provides its own type definitions, so you do not need this installed.
@@ -1180,6 +1195,10 @@ packages:
 
   '@types/json-schema@7.0.15':
     resolution: {integrity: sha512-5+fP8P8MFNC+AyZCDxrB2pkZFPGzqQWUzpSeuuVLvm8VMcorNYavBqoFcxK8bQz4Qsbn4oUEEem4wDLfcysGHA==}
+
+  '@types/keycloak-js@3.4.1':
+    resolution: {integrity: sha512-uWB18tdjmnABDxfS7XQULAy4rrL7mGxy1SN+ijvHJPbcIAhtZWqcJHrcMKruw7Eh4TKnLlK+vmIEmZDtpHFQmA==}
+    deprecated: This is a stub types definition for keycloak-js (https://github.com/keycloak/keycloak). keycloak-js provides its own type definitions, so you don't need @types/keycloak-js installed!
 
   '@types/mime@1.3.5':
     resolution: {integrity: sha512-/pyBZWSLD2n0dcHE3hq8s8ZvcETHtEuF+3E7XVt0Ig2nvsVQXdghHVcEkIWjy9A0wKfTn97a/PSDYohKIlnP/w==}
@@ -1518,6 +1537,10 @@ packages:
 
   core-js@3.38.1:
     resolution: {integrity: sha512-OP35aUorbU3Zvlx7pjsFdu1rGNnD4pgw/CWoYzRY3t2EzoVT7shKHY1dlAy3f41cGIO7ZDPQimhGFTlEYkG/Hw==}
+
+  cors@2.8.5:
+    resolution: {integrity: sha512-KIHbLJqu73RGr/hnbrO9uBeixNGuvSQjul/jdFvS/KFSIH1hWVd1ng7zOHx+YrEfInLG7q4n6GHQ9cDtxv/P6g==}
+    engines: {node: '>= 0.10'}
 
   create-require@1.1.1:
     resolution: {integrity: sha512-dcKFX3jn0MpIaXjisoRvexIJVEKzaq7z2rZKxf+MSr9TkdmHmsU4m2lcLojrj/FHl8mk5VxMmYA+ftRkP/3oKQ==}
@@ -2163,6 +2186,9 @@ packages:
     resolution: {integrity: sha512-pfUk+MV72MWpWRbCFkZfXlG8hhdUVgpmXVzQTZK/qIk8beyd5cau5q19Qk4x56M1uScy6RorAeACEBw708I2Xg==}
     engines: {node: '>=14'}
 
+  keycloak-js@26.0.0:
+    resolution: {integrity: sha512-uUvoc6luDuAOQ74i4/wKm1tGduYcJ/2jSh29Krekkt+ytn1mLL+mHug27FfpwgxcTb6yx+uL0OcehXwl3WIRMQ==}
+
   keyv@4.5.4:
     resolution: {integrity: sha512-oxVHkHR/EJf2CNXnWxRLW6mg7JyCCUcG0DtEGmL2ctUo1PNTin1PUil+r/+4r5MpVgC/fn1kjsx7mjSujKqIpw==}
 
@@ -2296,6 +2322,10 @@ packages:
 
   normalize-path@3.0.0:
     resolution: {integrity: sha512-6eZs5Ls3WtCisHWp9S2GUy8dqkpGi4BVSz3GaqiE6ezub0512ESztXUwUB6C6IKbQkY2Pnb/mD4WYojCRwcwLA==}
+    engines: {node: '>=0.10.0'}
+
+  object-assign@4.1.1:
+    resolution: {integrity: sha512-rJgTQnkUnH1sFw8yT6VSU3zD3sWmu6sZhIseY8VX+GRu3P6F7Fu+JNDoXfklElbLJSnc3FUQHVe4cU5hj+BcUg==}
     engines: {node: '>=0.10.0'}
 
   object-inspect@1.13.2:
@@ -4048,6 +4078,10 @@ snapshots:
     dependencies:
       '@types/node': 20.16.10
 
+  '@types/cors@2.8.17':
+    dependencies:
+      '@types/node': 20.16.10
+
   '@types/dotenv@8.2.0':
     dependencies:
       dotenv: 16.4.5
@@ -4075,6 +4109,10 @@ snapshots:
   '@types/http-errors@2.0.4': {}
 
   '@types/json-schema@7.0.15': {}
+
+  '@types/keycloak-js@3.4.1':
+    dependencies:
+      keycloak-js: 26.0.0
 
   '@types/mime@1.3.5': {}
 
@@ -4503,6 +4541,11 @@ snapshots:
       browserslist: 4.24.0
 
   core-js@3.38.1: {}
+
+  cors@2.8.5:
+    dependencies:
+      object-assign: 4.1.1
+      vary: 1.1.2
 
   create-require@1.1.1: {}
 
@@ -5288,6 +5331,8 @@ snapshots:
       - debug
       - supports-color
 
+  keycloak-js@26.0.0: {}
+
   keyv@4.5.4:
     dependencies:
       json-buffer: 3.0.1
@@ -5393,6 +5438,8 @@ snapshots:
   nodemailer@6.9.15: {}
 
   normalize-path@3.0.0: {}
+
+  object-assign@4.1.1: {}
 
   object-inspect@1.13.2: {}
 

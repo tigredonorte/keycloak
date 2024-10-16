@@ -1,9 +1,15 @@
 import express, { NextFunction, Request, Response } from 'express';
 import { configureMiddlewares } from './middlewares';
 import keycloak from './middlewares/keycloak';
+import cors from 'cors';
+
 
 export default async () => {
   const app = express();
+  app.use(cors({
+    origin: process.env.FRONTEND_URL,
+    credentials: true,
+  }));
   app.use(express.json());
 
   app.get('/', (req, res) => res.status(200).send('Hello World'));
@@ -15,7 +21,7 @@ export default async () => {
   });
 
   app.get('/secured', keycloak.protect(), (req, res) => {
-    res.send('This is a secured endpoint.');
+    res.status(200).json('This is a secured endpoint!');
   });
 
   const port = process.env.APP_PORT || 3005;
