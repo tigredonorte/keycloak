@@ -1,0 +1,31 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "lib": ["ES2022"],
+    "outDir": "build",
+    "allowJs": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "module": "CommonJS",
+    "moduleResolution": "node",
+    "sourceMap": true,
+    "baseUrl": ".",
+    "types": ["node"],
+    "noImplicitAny": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmitOnError": true,
+    "inlineSources": true,
+    "sourceRoot": "/"
+  },
+  "ts-node": {
+    "require": ["tsconfig-paths/register"],
+  },
+  "include": ["src/**/*", "index.js"],
+  "exclude": ["node_modules", "build"]
+}

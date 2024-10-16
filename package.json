@@ -11,7 +11,8 @@
     "preinstall": "npx only-allow pnpm",
     "run": "docker compose up --build --timestamps -d",
     "dev": "docker compose up --build --timestamps --watch",
-    "drop": "docker compose down -v --remove-orphans --rmi all"
+    "drop": "docker compose down -v --remove-orphans --rmi all",
+    "dev:server": "ts-node-dev --respawn --transpile-only index.js"
   },
   "keywords": [
     "kibana",

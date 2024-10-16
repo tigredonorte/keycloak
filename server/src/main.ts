@@ -1,7 +1,4 @@
-import * as dotenv from "dotenv";
 import express, { NextFunction, Request, Response } from 'express';
-
-dotenv.config({ path: __dirname + '/../.env' });
 
 export default async () => {
   const app = express();
@@ -14,7 +11,8 @@ export default async () => {
     console.error(err);
   });
 
-  app.listen(process.env.PORT, () => {
-    console.log(`Server is running on http://localhost:${process.env.PORT}`);
+  const port = process.env.APP_PORT || 3005;
+  app.listen(port, () => {
+    console.log(`Server is running on http://localhost:${port}`);
   });
 }
