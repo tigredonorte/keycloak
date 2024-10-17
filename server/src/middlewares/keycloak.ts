@@ -10,13 +10,9 @@ const config: Keycloak.KeycloakConfig = {
   'ssl-required': process.env.KEYCLOAK_SSL_REQUIRED || 'none',
   'confidential-port': 0,
 }
-console.log('Keycloak config', config);
 
 const memoryStore = new session.MemoryStore();
-const keycloak = new Keycloak({ 
-  store: memoryStore
-  
- }, config);
+const keycloak = new Keycloak({ store: memoryStore }, config);
 
 export function configureKeycloak(app: Application): void {
   app.use(session({

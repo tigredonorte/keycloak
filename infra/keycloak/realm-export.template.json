@@ -1,8 +1,12 @@
 {
   "realm": "${REALM}",
   "enabled": true,
+  "sslRequired": "external",
   "registrationAllowed": true,
   "resetPasswordAllowed": true,
+  "privateKey": "${KC_PRIVATE_KEY}",
+  "publicKey": "${KC_PUBLIC_KEY}",
+  "requiredCredentials": [ "password" ],
   "smtpServer": {
     "host": "${SMTP_HOST}",
     "port": "${SMTP_PORT}",
@@ -13,12 +17,19 @@
     "starttls": "true"
   },
   "userManagedAccessAllowed": true,
+  "defaultGroups": ["/User"],
+  "scopeMappings": [
+    {
+      "client": "frontend-client",
+      "roles": ["user"]
+    }
+  ],
   "clients": [
     {
       "clientId": "frontend-client",
       "enabled": true,
-      "protocol": "openid-connect",
       "publicClient": true,
+      "protocol": "openid-connect",
       "redirectUris": [
         "${FRONTEND_URL}/*"
       ],
@@ -35,13 +46,40 @@
     {
       "clientId": "backend-client",
       "enabled": true,
+      "secret": "${BACKEND_CLIENT_SECRET}",
+      "redirectUris": [
+        "http://localhost:3000/*"
+      ],
+      "webOrigins": [
+        "http://localhost:3000/*"
+      ],
+      "serviceAccountsEnabled": true,
+      "authorizationServicesEnabled": true,
       "protocol": "openid-connect",
       "publicClient": false,
-      "secret": "${BACKEND_CLIENT_SECRET}",
-      "directAccessGrantsEnabled": false,
+      "bearerOnly": true, 
       "standardFlowEnabled": true,
-      "serviceAccountsEnabled": true,
-      "clientAuthenticatorType": "client-secret"
+      "clientAuthenticatorType": "client-secret",
+      "authorizationSettings": {
+        "resources": [
+          {
+            "name": "resource",
+            "type": "urn:backend-client:resources:default",
+            "ownerManagedAccess": false,
+            "uris": [
+              "/*"
+            ],
+            "scopes": [
+              {
+                "name": "view"
+              },
+              {
+                "name": "write"
+              }
+            ]
+          }
+        ]
+      }
     }
   ],
   "roles": {
@@ -97,6 +135,23 @@
           "temporary": true
         }
       ]
+    },
+    {
+      "username" : "user",
+      "enabled": true,
+      "email" : "sample-user@nodejs-example",
+      "firstName": "Sample",
+      "lastName": "User",
+      "credentials" : [
+        {
+          "type" : "password",
+          "value" : "password"
+        }
+      ],
+      "realmRoles": [ "user" ],
+      "clientRoles": {
+          "account": ["view-profile", "manage-account"]
+      }
     }
   ]
 }

@@ -3,18 +3,12 @@ import { configureMiddlewares } from './middlewares';
 import keycloak from './middlewares/keycloak';
 import cors from 'cors';
 
-
 export default async () => {
   const app = express();
-  app.use(cors({
-    origin: process.env.FRONTEND_URL,
-    credentials: true,
-  }));
   app.use(express.json());
+  configureMiddlewares(app);
 
   app.get('/', (req, res) => res.status(200).send('Hello World'));
-  configureMiddlewares(app);
-  
   app.use(function onError(err: Error, req: Request, res: Response, next: NextFunction) {
     res.statusCode = 500;
     console.error(err);
