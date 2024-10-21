@@ -1,16 +1,5 @@
-import KcAdminClient from '@keycloak/keycloak-admin-client';
-
-export const defaultRealm = 'myRealm';
-const baseUrl = `http://${process.env.KC_HOSTNAME}:${process.env.KEYCLOAK_PORT}`;
-export const kcAdminClient = new KcAdminClient({
-  baseUrl,
-  realmName: process.env.REALM,
-});
-export type RealmConfigType = NonNullable<Parameters<typeof kcAdminClient.realms.create>[0]>;
-export type GroupConfigType = NonNullable<Parameters<typeof kcAdminClient.groups.create>[0]>;
-export type RoleConfigType = NonNullable<Parameters<typeof kcAdminClient.roles.create>[0]>;
-export type ClientConfigType = NonNullable<Parameters<typeof kcAdminClient.clients.create>[0]>;
-export type IdentityProviderConfigType = NonNullable<Parameters<typeof kcAdminClient.identityProviders.create>[0]>;
+import { kcAdminClient, realmName } from "./kcAdminClient";
+import { ClientConfigType, IdentityProviderConfigType, RealmConfigType } from "./realm.types";
 
 export async function authenticateKeycloak() {
   try {
@@ -30,10 +19,10 @@ export async function authenticateKeycloak() {
 
 export async function upsertRealm(realmConfig: RealmConfigType) {
   try {
-    const realmExists = await kcAdminClient.realms.findOne({ realm: process.env.REALM || defaultRealm });
+    const realmExists = await kcAdminClient.realms.findOne({ realm: realmName });
 
     if (realmExists) {
-      await kcAdminClient.realms.update({ realm: process.env.REALM || defaultRealm }, realmConfig);
+      await kcAdminClient.realms.update({ realm: realmName }, realmConfig);
       console.log(`Realm ${process.env.REALM} updated successfully.`);
     } else {
       await kcAdminClient.realms.create(realmConfig);

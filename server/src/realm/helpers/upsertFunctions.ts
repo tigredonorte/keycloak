@@ -1,12 +1,15 @@
 import { NetworkError } from '@keycloak/keycloak-admin-client';
-import { ClientConfigType, defaultRealm, GroupConfigType, IdentityProviderConfigType, kcAdminClient, RealmConfigType, RoleConfigType } from './kcAdmin';
+import { 
+  ClientConfigType, GroupConfigType, IdentityProviderConfigType, RealmConfigType, RoleConfigType 
+} from './realm.types';
+import { kcAdminClient, realmName } from './kcAdminClient';
 
 export async function upsertRealm(realmConfig: RealmConfigType) {
   try {
-    const existingRealm = await kcAdminClient.realms.findOne({ realm: realmConfig.realm || defaultRealm  });
+    const existingRealm = await kcAdminClient.realms.findOne({ realm: realmConfig.realm || realmName  });
 
     if (existingRealm) {
-      await kcAdminClient.realms.update({ realm: realmConfig.realm || defaultRealm }, realmConfig);
+      await kcAdminClient.realms.update({ realm: realmConfig.realm || realmName }, realmConfig);
       console.log(`Realm ${realmConfig.realm} updated successfully.`);
     } else {
       await kcAdminClient.realms.create(realmConfig);

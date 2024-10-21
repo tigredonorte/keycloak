@@ -1,4 +1,4 @@
-import { RealmConfigType } from "./kcAdmin";
+import { RealmConfigType } from "./realm.types";
 
 export const getIdentityProviders = () => {
   const identityProviders: any[] = [];

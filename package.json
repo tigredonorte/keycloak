@@ -21,7 +21,8 @@
     "dev": "docker compose up --build --timestamps --watch --attach api --attach web",
     "drop": "docker compose down -v --remove-orphans --rmi all",
     "dev:server": "ts-node-dev --respawn --transpile-only index.js",
-    "dev:web": "vite ./web --host 0.0.0.0"
+    "dev:web": "vite ./web --host 0.0.0.0",
+    "updateRealm": "ts-node-dev ./server/src/realm/realm.init.js"
   },
   "dependencies": {
     "@keycloak/keycloak-admin-client": "^26.0.1",
