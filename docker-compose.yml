@@ -57,13 +57,11 @@ services:
   keycloak:
     image: quay.io/keycloak/keycloak:26.0.0
     container_name: keycloak
-    command: start --import-realm
-    entrypoint: ["/opt/import-data/generate-realm.sh"]
+    command: start
     environment:
       - KC_DB_URL=jdbc:postgresql://${POSTGRES_HOST}:${POSTGRES_PORT}/${POSTGRES_DB}
       - KC_DB_USERNAME=${POSTGRES_USER}
       - KC_DB_PASSWORD=${POSTGRES_PASSWORD}
-      - KEYCLOAK_ADMIN_URL=http://${KC_HOSTNAME}:${NGINX_HOST_PORT}
       - KC_HOSTNAME_URL=http://${KC_HOSTNAME}:${NGINX_HOST_PORT}
     env_file:
       - .env
@@ -77,6 +75,7 @@ services:
       - ./infra/keycloak:/opt/import-data/
     networks:
       - my-network
+      - auth-network
 
   postgres:
     image: postgres:14
@@ -88,9 +87,9 @@ services:
     volumes:
       - pgdata:/var/lib/postgresql/data
     ports:
-      - "${POSTGRES_PORT}:5432"
+      - "${POSTGRES_PORT}"
     networks:
-      - my-network
+      - auth-network
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
       interval: 10s
@@ -102,6 +101,8 @@ volumes:
 
 networks:
   my-network:
+    driver: bridge
+  auth-network:
     driver: bridge
 
 configs:

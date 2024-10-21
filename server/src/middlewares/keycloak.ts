@@ -1,24 +1,26 @@
-import Keycloak from 'keycloak-connect';
-import session from 'express-session';
 import { Application } from 'express';
+import session from 'express-session';
+import Keycloak from 'keycloak-connect';
 
-const config: Keycloak.KeycloakConfig = {
-  'auth-server-url': process.env.KEYCLOAK_SERVER_URL || 'http://auth.localhost/',
-  'realm': process.env.REALM || 'myrealm',
-  'resource': 'backend-client',
-  'bearer-only': true,
-  'ssl-required': process.env.KEYCLOAK_SSL_REQUIRED || 'none',
-  'confidential-port': 0,
-}
-console.log('Keycloak config', config);
-
-const memoryStore = new session.MemoryStore();
-const keycloak = new Keycloak({ 
-  store: memoryStore
-  
- }, config);
-
+let kc: Keycloak.Keycloak;
 export function configureKeycloak(app: Application): void {
+
+  console.log('process.env.KEYCLOAK_CLIENT_ID', process.env.KEYCLOAK_CLIENT_ID);
+  if (!process.env.KEYCLOAK_CLIENT_ID || !process.env.KEYCLOAK_CLIENT_SECRET || !process.env.KEYCLOAK_REALM) {
+    throw new Error('Please provide KEYCLOAK_CLIENT_ID and KEYCLOAK_CLIENT_SECRET and KEYCLOAK_REALM');
+  }
+
+  const memoryStore = new session.MemoryStore();
+
+  kc = new Keycloak({ store: memoryStore },  {
+    'auth-server-url': `http://${process.env.KC_HOSTNAME}:${process.env.KEYCLOAK_PORT}/auth`,
+    realm: process.env.KEYCLOAK_REALM,
+    'ssl-required': process.env.KEYCLOAK_SSL_REQUIRED || 'none',
+    resource: process.env.KEYCLOAK_CLIENT_ID,
+    'confidential-port': 0,
+    'bearer-only': true,
+  });
+
   app.use(session({
     secret: process.env.SESSION_SECRET || 'secret-key',
     resave: false,
@@ -26,7 +28,7 @@ export function configureKeycloak(app: Application): void {
     store: memoryStore,
   }));
 
-  app.use(keycloak.middleware());
+  app.use(kc.middleware());
 }
 
-export default keycloak;
+export const getKeycloak = () => kc;

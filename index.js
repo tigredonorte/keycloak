@@ -1,1 +1,3 @@
-require('./server/src/main').default();
+const { server } = require('./server/src/main');
+
+server();
