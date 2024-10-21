@@ -1,3 +1,5 @@
+import { RealmConfigType } from "./helpers/kcAdmin";
+
 function getBookPermissions() {
   
   const bookPermissions = {
@@ -34,7 +36,7 @@ function getBookPermissions() {
   return { bookPermissions, roles };
 }
 
-export const mapBookConfig = (realmConfig) => {
+export const mapBookConfig = (realmConfig: RealmConfigType) => {
   const { bookPermissions, roles } = getBookPermissions();
 
   return {

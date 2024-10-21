@@ -6,6 +6,11 @@ export const kcAdminClient = new KcAdminClient({
   baseUrl,
   realmName: process.env.REALM,
 });
+export type RealmConfigType = NonNullable<Parameters<typeof kcAdminClient.realms.create>[0]>;
+export type GroupConfigType = NonNullable<Parameters<typeof kcAdminClient.groups.create>[0]>;
+export type RoleConfigType = NonNullable<Parameters<typeof kcAdminClient.roles.create>[0]>;
+export type ClientConfigType = NonNullable<Parameters<typeof kcAdminClient.clients.create>[0]>;
+export type IdentityProviderConfigType = NonNullable<Parameters<typeof kcAdminClient.identityProviders.create>[0]>;
 
 export async function authenticateKeycloak() {
   try {
@@ -23,7 +28,7 @@ export async function authenticateKeycloak() {
   }
 }
 
-export async function upsertRealm(realmConfig: any) {
+export async function upsertRealm(realmConfig: RealmConfigType) {
   try {
     const realmExists = await kcAdminClient.realms.findOne({ realm: process.env.REALM || defaultRealm });
 
@@ -40,7 +45,7 @@ export async function upsertRealm(realmConfig: any) {
   }
 }
 
-export async function createClient(clientConfig: any) {
+export async function createClient(clientConfig: ClientConfigType) {
   try {
     const clientExists = await kcAdminClient.clients.find({ clientId: clientConfig.clientId });
     if (clientExists.length === 0) {
@@ -71,11 +76,10 @@ export async function updateAdminRole() {
   }
 }
 
-export async function createIdentityProvider(identityProviderConfig: any) {
+export async function createIdentityProvider(identityProviderConfig: IdentityProviderConfigType) {
   try {
     const identityProviders = await kcAdminClient.identityProviders.find({ realm: process.env.REALM });
 
-    // Filter the identity providers by alias
     const identityProviderExists = identityProviders.some(provider => provider.alias === identityProviderConfig.alias);
 
     if (!identityProviderExists) {

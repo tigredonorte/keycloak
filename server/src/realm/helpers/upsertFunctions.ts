@@ -1,7 +1,7 @@
 import { NetworkError } from '@keycloak/keycloak-admin-client';
-import { defaultRealm, kcAdminClient } from './kcAdmin';
+import { ClientConfigType, defaultRealm, GroupConfigType, IdentityProviderConfigType, kcAdminClient, RealmConfigType, RoleConfigType } from './kcAdmin';
 
-export async function upsertRealm(realmConfig: any) {
+export async function upsertRealm(realmConfig: RealmConfigType) {
   try {
     const existingRealm = await kcAdminClient.realms.findOne({ realm: realmConfig.realm || defaultRealm  });
 
@@ -23,7 +23,7 @@ export async function upsertRealm(realmConfig: any) {
   }
 }
 
-export async function upsertGroups(groups: any[]) {
+export async function upsertGroups(groups: GroupConfigType[]) {
   for (const group of groups) {
     try {
       const existingGroups = await kcAdminClient.groups.find({ search: group.name });
@@ -42,8 +42,8 @@ export async function upsertGroups(groups: any[]) {
   }
 }
 
-export async function upsertRoles(roles: { realm: any[]}) {
-  for (const role of roles.realm) {
+export async function upsertRoles(roles: RoleConfigType[]) {
+  for (const role of roles) {
     try {
       const existingRole = await kcAdminClient.roles.findOneByName({ name: role.name as string });
 
@@ -61,7 +61,7 @@ export async function upsertRoles(roles: { realm: any[]}) {
   }
 }
 
-export async function upsertClients(clients: any[]) {
+export async function upsertClients(clients: ClientConfigType[]) {
   for (const client of clients) {
     try {
       const existingClients = await kcAdminClient.clients.find({ clientId: client.clientId });
@@ -80,13 +80,13 @@ export async function upsertClients(clients: any[]) {
   }
 }
 
-export async function upsertIdentityProviders(identityProviders: any[]) {
+export async function upsertIdentityProviders(identityProviders: IdentityProviderConfigType[]) {
   for (const provider of identityProviders) {
     try {
       const existingProviders = await kcAdminClient.identityProviders.find({ search: provider.alias });
 
       if (existingProviders.length > 0) {
-        await kcAdminClient.identityProviders.update({ alias: provider.alias }, provider);
+        await kcAdminClient.identityProviders.update({ alias: provider.alias as string }, provider);
         console.log(`Identity provider ${provider.alias} updated successfully.`);
       } else {
         await kcAdminClient.identityProviders.create(provider);

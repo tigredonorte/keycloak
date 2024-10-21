@@ -7,7 +7,7 @@ interface TokenResponse {
   refresh_token?: string;
 }
 
-export async function getToken(authUrl) {
+export async function getToken(authUrl: string) {
   const tokenUrl = `${authUrl}/protocol/openid-connect/token`;
   const body = new URLSearchParams({
     client_id: 'admin-cli',

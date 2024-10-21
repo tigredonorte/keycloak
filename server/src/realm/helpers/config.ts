@@ -1,3 +1,4 @@
+import { RealmConfigType } from "./kcAdmin";
 
 export const getIdentityProviders = () => {
   const identityProviders: any[] = [];
@@ -35,7 +36,7 @@ export const getIdentityProviders = () => {
   return identityProviders;
 }
 
-export const getRealmConfig = () => ({
+export const getRealmConfig = (): RealmConfigType => ({
   realm: process.env.REALM,
   enabled: true,
   registrationAllowed: true,
@@ -66,7 +67,7 @@ export const getRealmConfig = () => ({
       protocol: 'openid-connect',
       publicClient: true,
       redirectUris: [`${process.env.FRONTEND_URL}/*`],
-      webOrigins: [process.env.FRONTEND_URL],
+      webOrigins: [`+(${process.env.FRONTEND_URL})`],
       rootUrl: process.env.FRONTEND_URL,
       directAccessGrantsEnabled: true,
       standardFlowEnabled: true,

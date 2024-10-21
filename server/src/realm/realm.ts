@@ -9,10 +9,10 @@ export async function initRealm() {
     realmConfig = mapBookConfig(realmConfig);
     await authenticateKeycloak();
     await upsertRealm(realmConfig);
-    await upsertGroups(realmConfig.groups);
-    await upsertRoles(realmConfig.roles);
-    await upsertClients(realmConfig.clients);
-    await upsertIdentityProviders(realmConfig.identityProviders);
+    await upsertGroups(realmConfig.groups || []);
+    await upsertRoles(realmConfig.roles?.realm || []);
+    await upsertClients(realmConfig.clients || []);
+    await upsertIdentityProviders(realmConfig.identityProviders || []);
   } catch (error) {
     console.error('Error during the upsert process:', error);
   }
