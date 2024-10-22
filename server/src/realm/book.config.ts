@@ -1,4 +1,4 @@
-import { RealmConfigType } from "./helpers/kcAdmin";
+import { RealmConfigType } from "./helpers/realm.types";
 
 function getBookPermissions() {
   
